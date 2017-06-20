@@ -14,7 +14,7 @@ ENV HBASE_VERSION 1.2.4
 RUN /build/prepare-hbase.sh && \
     cd /opt/hbase && /build/build-hbase.sh \
     cd / && /build/cleanup-hbase.sh && rm -rf /build
-
+RUN curl -s http://www-us.apache.org/dist/phoenix/apache-phoenix-4.9.0-HBase-1.2/bin/apache-phoenix-4.9.0-HBase-1.2-bin.tar.gz | tar -xz -C /opt/hbase/lib/
 VOLUME /data
 
 ADD ./hbase-site.xml /opt/hbase/conf/hbase-site.xml
