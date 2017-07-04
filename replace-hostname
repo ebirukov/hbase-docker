@@ -9,6 +9,7 @@
 #
 declare -a files=(
 	'/opt/hbase/conf/hbase-site.xml'
+	'/opt/hbase/conf/regionservers'
 	'/opt/hbase/conf/zoo.cfg'
 )
 
@@ -19,5 +20,7 @@ for file in "${files[@]}"; do
 		cp "${file}" "${file}.bak"
 	fi
 
-	sed -i "s/hbase-docker/${HOSTNAME}/g" "${file}"
+	sed -i "s/hbase-docker/${ZK_QUORUM}/g" "${file}"
+        sed -i "s/localhost/${ZK_QUORUM}/g" "${file}"
+
 done
