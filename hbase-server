@@ -23,7 +23,11 @@ mkdir -p $logs_dir /data/hbase /tmp/run
 # Ports: Master: 16000 API, 16010 UI; 2181 ZK;  Region: 16020 API, 16030 UI
 echo "hbase master start logging to $logs_dir/hbase-master.log"
 /opt/hbase/bin/local-regionservers.sh start 4 5
-
+backup_host=$(cat /opt/hbase/conf/backup-masters)
+sleep 10
+if [ backup_host=${HOSTNAME} ]; then
+exec hbase master start --backup 2>&1 | tee $logs_dir/hbase-master.log
+else
 exec hbase master start 2>&1 | tee $logs_dir/hbase-master.log
-sleep 20
-exec /opt/hbase/bin/local-regionservers.sh start 4 5
+fi  
+
