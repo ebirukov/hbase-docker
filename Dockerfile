@@ -25,6 +25,8 @@ ADD ./replace-hostname /opt/replace-hostname
 
 ADD ./hbase-server /opt/hbase-server
 
+ADD ./regionserver.sh /opt/hbase/bin/regionserver.sh
+
 # REST API
 EXPOSE 8080
 # REST Web UI at :8085/rest.jsp
